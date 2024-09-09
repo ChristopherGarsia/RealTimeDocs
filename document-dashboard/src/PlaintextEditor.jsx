@@ -1,29 +1,40 @@
-import React, { useState } from 'react';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+import React, { useEffect, useState, useRef } from 'react';
+import ReconnectingWebSocket from 'reconnecting-websocket';
+import ShareDB from 'sharedb/lib/client';
+import StringBinding from 'sharedb-string-binding';
 
 const PlainTextEditor = () => {
-  const [editorValue, setEditorValue] = useState('');
+  const [currDoc, setCurrDoc] = useState(null);
+  const textareaRef = useRef(null);
 
-  const handleChange = (value) => {
-    setEditorValue(value); // Update the state with the current editor value
-  };
+  useEffect(() => {    
+    var socket = new ReconnectingWebSocket('ws://localhost:3000', [], {
+  // ShareDB handles dropped messages, and buffering them while the socket
+  // is closed has undefined behavior
+  maxEnqueuedMessages: 0
+})
+    const element = textareaRef.current;
 
-  const modules = {
-    toolbar: false, // Disable the toolbar
-  };
+    var connection = new ShareDB.Connection(socket)
+    const doc = connection.get('documents', 'docId')
+    setCurrDoc(doc)
 
-  const formats = [];
+    doc.subscribe((error) => {
+      if (error) return console.error(error)
+
+      var binding = new StringBinding(element, doc, ['content']);
+      binding.setup();
+    });
+
+    // Cleanup WebSocket connection on component unmount
+    return () => {
+      socket.close();
+    };
+  }, []);
 
   return (
     <div>
-      <ReactQuill
-        theme="snow"
-        value={editorValue} // Bind the editor value to state
-        onChange={handleChange} // Update state on change
-        modules={modules}
-        formats={formats}
-      />
+      <textarea ref={textareaRef} style={{ width: '100%', height: '300px' }} />
     </div>
   );
 };
