@@ -3,7 +3,7 @@ import ReconnectingWebSocket from 'reconnecting-websocket';
 import ShareDB from 'sharedb/lib/client';
 import StringBinding from 'sharedb-string-binding';
 
-const PlainTextEditor = () => {
+const PlainTextEditor = (props) => {
   const [currDoc, setCurrDoc] = useState(null);
   const textareaRef = useRef(null);
 
@@ -16,7 +16,7 @@ const PlainTextEditor = () => {
     const element = textareaRef.current;
 
     var connection = new ShareDB.Connection(socket)
-    const doc = connection.get('documents', 'docId')
+    const doc = connection.get(props.userId, props.docId)
     setCurrDoc(doc)
 
     doc.subscribe((error) => {
