@@ -69,3 +69,26 @@ button:focus-visible {
 editor-container {
   width: 10%;
 }
+
+input {
+  border-radius: 8px;
+  border: 1px solid #1a1a1a;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #fff;
+  color: #1a1a1a;
+  transition: border-color 0.25s, background-color 0.25s;
+  margin-left: 10px; /* Space between input and button */
+}
+
+input:hover {
+  border-color: #646cff;
+}
+
+input:focus,
+input:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+  background-color: #f3f3f3;
+}

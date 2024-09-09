@@ -4,17 +4,19 @@ import DocumentCreator from './DocumentCreator';
 
 const App = () => {
   const [docCreated, setDocCreated] = useState(false)
+  const [docId, setDocId] = useState('')
+  const [userId, setUserId] = useState('user')
 
   return (
     <div className="App">
       {
         docCreated?
         <div className="editor-container">
-          <PlainTextEditor/>
+          <PlainTextEditor docId={docId} userId={userId}/>
         </div>
         :
         <div>
-          <DocumentCreator docCreated={docCreated} setDocCreated={setDocCreated}/>
+          <DocumentCreator userId={userId} docId={docId} setDocId={setDocId} docCreated={docCreated} setDocCreated={setDocCreated}/>
         </div>
       }
     </div>
