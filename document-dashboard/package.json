@@ -10,9 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@teamwork/websocket-json-stream": "^2.0.0",
+    "inherits": "^2.0.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-quill": "^2.0.0"
+    "react-quill": "^2.0.0",
+    "reconnecting-websocket": "^4.4.0",
+    "sharedb-string-binding": "^1.0.0",
+    "util": "^0.12.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
@@ -24,6 +29,7 @@
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.9",
     "globals": "^15.9.0",
-    "vite": "^5.4.1"
+    "vite": "^5.4.1",
+    "vite-plugin-node-polyfills": "^0.22.0"
   }
 }
