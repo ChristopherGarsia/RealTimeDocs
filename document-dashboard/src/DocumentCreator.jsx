@@ -14,12 +14,10 @@ const DocumentCreator = (props) => {
         docId: props.docId,
       }),
     })
-      .then((response) => response.json())
+      .then((response) => props.setDocCreated(true))
       .catch((error) => {
         console.error('Error creating document:', error);
       });
-
-    props.setDocCreated(true);
   };
 
   return (
