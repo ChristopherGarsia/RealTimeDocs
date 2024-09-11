@@ -13,7 +13,7 @@ function createDoc(username, docId) {
   });
 }
 
-router.post('/createDoc', (req, res) => {
+router.post('/create', (req, res) => {
   const { username, docId } = req.body;
 
   createDoc(username, docId);

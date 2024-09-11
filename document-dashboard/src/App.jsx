@@ -1,24 +1,33 @@
-import React, {useState} from 'react'
-import PlainTextEditor from './PlaintextEditor'; 
+import React, { useState } from 'react';
+import PlainTextEditor from './PlainTextEditor';
 import DocumentCreator from './DocumentCreator';
+import LoginForm from './LoginForm';
 
 const App = () => {
-  const [docCreated, setDocCreated] = useState(false)
-  const [docId, setDocId] = useState('')
-  const [userId, setUserId] = useState('user')
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [docCreated, setDocCreated] = useState(false);
+  const [docId, setDocId] = useState('');
+  const [userId, setUserId] = useState('');
 
   return (
     <div className="App">
-      {
-        docCreated?
+      {!isLoggedIn ? (
+        <LoginForm setUserId={setUserId} setIsLoggedIn={setIsLoggedIn} />
+      ) : docCreated ? (
         <div className="editor-container">
-          <PlainTextEditor docId={docId} userId={userId}/>
+          <PlainTextEditor docId={docId} userId={userId} />
         </div>
-        :
+      ) : (
         <div>
-          <DocumentCreator userId={userId} docId={docId} setDocId={setDocId} docCreated={docCreated} setDocCreated={setDocCreated}/>
+          <DocumentCreator 
+            userId={userId} 
+            docId={docId} 
+            setDocId={setDocId} 
+            docCreated={docCreated} 
+            setDocCreated={setDocCreated} 
+          />
         </div>
-      }
+      )}
     </div>
   );
 };

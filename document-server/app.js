@@ -6,6 +6,7 @@ var logger = require('morgan');
 const cors = require('cors');
 
 var documentHandler = require('./routes/documentHandler');
+var userHandler = require('./routes/userHandler');
 
 var app = express();
 
@@ -20,7 +21,8 @@ app.use(cookieParser());
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', documentHandler);
+app.use('/documents', documentHandler);
+app.use('/users', userHandler);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
