@@ -4,7 +4,7 @@ const DocumentCreator = (props) => {
 
   const createDocument = (props) => {
     console.log('creating doc for: ' + props.docId + ' ' + props.userId)
-    fetch('http://localhost:3000/createDoc', {
+    fetch('http://localhost:3000/documents/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
