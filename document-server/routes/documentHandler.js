@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const backend = require('../bin/lib/sharedb');
+const backend = require('../sharedb');
 
 function createDoc(username, docId) {
   var connection = backend.connect();
