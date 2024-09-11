@@ -164,3 +164,21 @@ form {
 .auth-back-button:hover {
   background-color: #a1a1a1;
 }
+
+.documents-container {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.documents-container select {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.documents-container label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}

@@ -2,19 +2,20 @@ import React, { useState } from 'react';
 
 const DocumentCreator = (props) => {
 
+  const[currentDocId, setCurrentDocId] = useState('');
+
   const createDocument = (props) => {
-    console.log('creating doc for: ' + props.docId + ' ' + props.userId)
     fetch('http://localhost:3000/documents/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        username: props.userId,
-        docId: props.docId,
+        userId: props.userId,
+        docId: currentDocId,
       }),
     })
-      .then((response) => props.setDocCreated(true))
+      .then((response) => props.setDocId(currentDocId))
       .catch((error) => {
         console.error('Error creating document:', error);
       });
@@ -24,15 +25,15 @@ const DocumentCreator = (props) => {
     <div>
       <button
         onClick={() => createDocument(props)}
-        disabled={!props.docId}
+        disabled={!currentDocId}
       >
         Create New Document
       </button>
       <input
         type="text"
         placeholder="Enter Name for Document"
-        value={props.docId}
-        onChange={(e) => props.setDocId(e.target.value)}
+        value={currentDocId}
+        onChange={(e) => setCurrentDocId(e.target.value)}
       />
     </div>
   );
