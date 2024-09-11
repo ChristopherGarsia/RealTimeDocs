@@ -2,6 +2,7 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const connectToDb = require('../db');
 const router = express.Router();
+const { ObjectId } = require('mongodb');
 
 router.post('/register', async (req, res) => {
   const { username, password } = req.body;
@@ -64,6 +65,28 @@ router.post('/login', async (req, res) => {
     } catch (error) {
       console.error('Error logging in:', error);
       res.status(500).json({ success: false, message: 'Server error. Please try again later.' });
+    }
+  });
+
+router.get('/documents/:userId', async (req, res) => {
+    const userId = req.params.userId;
+
+    try {
+      const db = await connectToDb();
+      const usersCollection = db.collection('users');
+  
+      const user = await usersCollection.findOne({ _id: ObjectId(userId) });
+  
+      if (!user) {
+        return res.status(404).json({ success: false, message: 'User not found' });
+      }
+  
+      const documents = user.AccessibleDocs || {};
+  
+      return res.status(200).json({ success: true, documents });
+    } catch (err) {
+      console.error('Error retrieving docs for user:', err);
+      return res.status(500).json({ success: false, message: 'Internal server error' });
     }
   });
   

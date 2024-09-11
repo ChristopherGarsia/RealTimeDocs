@@ -20,7 +20,7 @@ const LoginForm = ({ setUserId, setIsLoggedIn }) => {
         .then((response) => response.json())
         .then((data) => {
           if (data.success) {
-            setUserId(username);
+            setUserId(data.userId);
             setIsLoggedIn(true); 
           } else {
             setError('Invalid credentials');
