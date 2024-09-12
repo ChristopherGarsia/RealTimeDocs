@@ -59,6 +59,11 @@ form {
   min-height: 100vh;
   background-color: #f2f2f7;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  width: 100%; /* Full width of the viewport */
+  max-width: 1200px; /* Adjust width as needed */
+  margin: 0 auto; /* Center container horizontally */
+  padding: 0 20px; /* Optional: Add horizontal padding if desired */
+  box-sizing: border-box; /* Include padding in width calculation */
 }
 
 .editor-container {
@@ -142,6 +147,12 @@ form {
   text-align: center;
 }
 
+.share-content {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* Ensure items stretch to full width */
+}
+
 .share-content h3 {
   margin-bottom: 20px;
   color: #333;
@@ -150,29 +161,31 @@ form {
 }
 
 /* Inputs and buttons inside the popup */
-.share-content input {
-  margin-bottom: 16px;
-  padding: 10px;
-  border: 1px solid #d1d1d6;
-  border-radius: 8px;
-  width: 100%;
-  font-size: 16px;
-  background-color: #f5f5f7;
-}
-
 .share-content button {
-  background-color: #007aff;
+  background-color: #4CAF50; /* Green */
   color: white;
   border: none;
   border-radius: 8px;
-  padding: 12px;
+  padding: 12px; /* Increased padding */
   font-size: 16px;
-  width: 100%;
-  margin-bottom: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%; /* Make button fill the container width */
+  box-sizing: border-box; /* Ensure padding is included in the width */
+  margin-bottom: 10px; /* Add space between buttons */
 }
 
 .share-content button:hover {
-  background-color: #0056b3;
+  background-color: #45a049; /* Darker green */
+}
+
+/* Style for the close button */
+.share-content button.close-btn {
+  background-color: #f44336; /* Red */
+}
+
+.share-content button.close-btn:hover {
+  background-color: #e74c3c; /* Darker red */
 }
 
 /* Back button */

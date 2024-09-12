@@ -89,6 +89,23 @@ router.get('/documents/:userId', async (req, res) => {
       return res.status(500).json({ success: false, message: 'Internal server error' });
     }
   });
+
+router.get('', async (req, res) => {
+    try {
+        const db = await connectToDb();
+        const usersCollection = db.collection('users');
+        
+        const users = await usersCollection.find({}, {}).toArray();
+
+        console.log(users)
+
+        const usernames = users.map(user => user.username);
+        res.status(200).json({ success: true, usernames });
+    } catch (error) {
+        console.error('Error retrieving usernames:', error);
+        res.status(500).json({ success: false, message: 'Error retrieving usernames' });
+    }
+});
   
 
 module.exports = router;

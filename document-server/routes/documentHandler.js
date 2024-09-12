@@ -3,6 +3,7 @@ var router = express.Router();
 const backend = require('../sharedb');
 const connectToDb = require('../db');
 const { ObjectId } = require('mongodb');
+const { v4: uuidv4 } = require('uuid');
 
 async function createDoc(userId, docId) {
   try {
@@ -87,6 +88,7 @@ router.post('/create', async (req, res) => {
     console.error('doc id not present')
     res.status(400).json({ success:false, message: 'doc id not present' })
   } else {
+    
     const result = await createDoc(userId, docId);
 
     if (result.success) {
