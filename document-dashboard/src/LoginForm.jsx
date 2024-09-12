@@ -40,8 +40,8 @@ const LoginForm = ({ setUserId, setIsLoggedIn }) => {
     <div className="auth-container">
       {showRegistration ? (
         <RegistrationForm 
-            onRegisterSuccess={handleRegisterSuccess} 
-            goBackToLogin={() => setShowRegistration(false)}
+          onRegisterSuccess={handleRegisterSuccess} 
+          goBackToLogin={() => setShowRegistration(false)}
         />
       ) : (
         <div className="login-container">
@@ -60,12 +60,9 @@ const LoginForm = ({ setUserId, setIsLoggedIn }) => {
           />
           {error && <p style={{ color: 'red' }}>{error}</p>}
           <button className="auth-button" onClick={handleLogin}>Login</button>
-          <p className="auth-toggle">
-            Don't have an account?{' '}
-            <button className="toggle-button" onClick={() => setShowRegistration(true)}>
-              Register here
-            </button>
-          </p>
+          <button className="auth-button" onClick={() => setShowRegistration(true)}>
+            Register here
+          </button>
         </div>
       )}
     </div>
