@@ -16,7 +16,6 @@ const PlainTextEditor = (props) => {
       const data = await response.json();
       if (data.success) {
         setUsers(data.usernames);
-        console.log(data.usernames)
       } else {
         console.error('Error fetching users:', data.message);
       }

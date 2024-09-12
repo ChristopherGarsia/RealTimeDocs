@@ -24,7 +24,7 @@ const RegistrationForm = ({ onRegisterSuccess, goBackToLogin }) => {
         if (data.success) {
           onRegisterSuccess();
         } else {
-          setError(data.message);
+          setError(data.error);
         }
       })
       .catch(err => {
