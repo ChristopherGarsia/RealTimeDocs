@@ -28,7 +28,7 @@ const DocumentCreator = (props) => {
     <div className="document-creator-container">
       <input
         type="text"
-        placeholder="Enter name for document"
+        placeholder="Enter document name"
         value={currentDocId}
         onChange={(e) => setCurrentDocId(e.target.value)}
         className="doc-name-input"

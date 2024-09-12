@@ -8,6 +8,22 @@ const PlainTextEditor = (props) => {
   const [showSharePopup, setShowSharePopup] = useState(false);
   const [shareUsername, setShareUsername] = useState('');
   const [shareMessage, setShareMessage] = useState('');
+  const [users, setUsers] = useState([]);
+
+  const fetchUsers = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/users', { method: 'GET'});
+      const data = await response.json();
+      if (data.success) {
+        setUsers(data.usernames);
+        console.log(data.usernames)
+      } else {
+        console.error('Error fetching users:', data.message);
+      }
+    } catch (error) {
+      console.error('Error fetching users:', error);
+    }
+  };
 
   useEffect(() => {
     if (props.docId && props.docSpaceId) {
@@ -68,14 +84,21 @@ const PlainTextEditor = (props) => {
           <div className="share-popup">
             <div className="share-content">
               <h3>Share Document</h3>
-              <input
-                type="text"
-                placeholder="Enter username"
+              <select
+                className="documents-container"
                 value={shareUsername}
                 onChange={(e) => setShareUsername(e.target.value)}
-              />
-              <button onClick={handleShare}>Share</button>
-              <button className="close-btn" onClick={() => setShowSharePopup(false)}>Close</button>
+                onClick={fetchUsers}
+              >
+                <option value="">Select a User</option>
+                {users.map((username) => (
+                  <option key={username} value={username}>
+                    {username}
+                  </option>
+                ))}
+              </select>
+              <button onClick={handleShare} className="auth-button">Share</button>
+              <button className="auth-button close-btn" onClick={() => setShowSharePopup(false)}>Close</button>
               {shareMessage && <p>{shareMessage}</p>}
             </div>
           </div>
