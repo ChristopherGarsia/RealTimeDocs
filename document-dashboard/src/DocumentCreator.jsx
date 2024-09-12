@@ -15,7 +15,10 @@ const DocumentCreator = (props) => {
         docId: currentDocId,
       }),
     })
-      .then((response) => props.setDocId(currentDocId))
+      .then((response) => {
+        props.setDocId(currentDocId)
+        props.setDocSpaceId(props.userId)
+      })
       .catch((error) => {
         console.error('Error creating document:', error);
       });

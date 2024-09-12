@@ -6,29 +6,31 @@ import StringBinding from 'sharedb-string-binding';
 const PlainTextEditor = (props) => {
   const textareaRef = useRef(null);
 
-  useEffect(() => {    
+  useEffect(() => {
+    if (props.docId && props.docSpaceId) {
       var socket = new ReconnectingWebSocket('ws://localhost:3000', [], {
-      // ShareDB handles dropped messages, and buffering them while the socket
-      // is closed has undefined behavior
-      maxEnqueuedMessages: 0
-    })
-    const element = textareaRef.current;
+        // ShareDB handles dropped messages, and buffering them while the socket
+        // is closed has undefined behavior
+        maxEnqueuedMessages: 0
+      })
+      const element = textareaRef.current;
 
-    var connection = new ShareDB.Connection(socket)
-    const doc = connection.get(props.docSpaceId, props.docId)
-    
-    doc.subscribe((error) => {
-      if (error) return console.error(error)
+      var connection = new ShareDB.Connection(socket)
+      const doc = connection.get(props.docSpaceId, props.docId)
 
-      var binding = new StringBinding(element, doc, ['content']);
-      binding.setup();
-    });
+      doc.subscribe((error) => {
+        if (error) return console.error(error)
 
-    // Cleanup WebSocket connection on component unmount
-    return () => {
-      socket.close();
-    };
-  }, []);
+        var binding = new StringBinding(element, doc, ['content']);
+        binding.setup();
+      });
+
+      // Cleanup WebSocket connection on component unmount
+      return () => {
+        socket.close();
+      };
+    }
+  }, [props.docSpaceId, props.docId]);
 
   return (
     <div>

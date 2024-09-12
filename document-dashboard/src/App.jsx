@@ -23,8 +23,8 @@ const App = () => {
           <Documents userId={userId} setDocId={setDocId} setDocSpaceId={setDocSpaceId} />
           <DocumentCreator 
             userId={userId} 
-            docId={docId} 
             setDocId={setDocId} 
+            setDocSpaceId={setDocSpaceId}
           />
         </div>
       )}
