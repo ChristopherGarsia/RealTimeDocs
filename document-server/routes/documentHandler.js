@@ -63,7 +63,6 @@ async function addDocToMongoDb(userId, docId) {
       return { success: false, message: 'User not found' };
     }
 
-    // Add or update the docId in AccessibleDocs
     const update = {
       $set: {
         [`AccessibleDocs.${docId}`]: userId,
@@ -95,6 +94,35 @@ router.post('/create', async (req, res) => {
     } else {
       res.status(500).json(result);
     }
+  }
+});
+
+router.post('/share', async (req, res) => {
+  const { docId, docSpaceId, targetUsername } = req.body;
+
+  try {
+    const db = await connectToDb();
+    const usersCollection = db.collection('users');
+
+    const targetUser = await usersCollection.findOne({ username: targetUsername });
+    
+    if (!targetUser) {
+      return res.status(404).json({ success: false, message: 'Target user not found' });
+    }
+
+    const update = {
+      $set: {
+        [`AccessibleDocs.${docId}`]: docSpaceId,
+      }
+    };
+
+    await usersCollection.updateOne({ _id: ObjectId(targetUser._id) }, update);
+
+    return res.status(200).json({ success: true, message: 'Document shared successfully' });
+
+  } catch (error) {
+    console.error('Error sharing document:', error);
+    return res.status(500).json({ success: false, message: 'Error sharing document' });
   }
 });
 

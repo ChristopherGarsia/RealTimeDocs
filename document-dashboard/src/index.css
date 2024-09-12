@@ -149,22 +149,6 @@ form {
   text-decoration: underline;
 }
 
-.auth-back-button {
-  width: 100%;
-  padding: 0.8rem;
-  margin-top: 1rem;
-  background-color: #ccc;
-  border: none;
-  color: white;
-  font-size: 1rem;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.auth-back-button:hover {
-  background-color: #a1a1a1;
-}
-
 .documents-container {
   margin-top: 20px;
   margin-bottom: 20px;
@@ -181,4 +165,111 @@ form {
   display: block;
   margin-bottom: 8px;
   font-weight: bold;
+}
+/* Container styles */
+.editor-wrapper {
+  position: relative;
+}
+
+/* Popup background overlay */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Dark transparent overlay */
+  z-index: 9;
+}
+
+/* Popup styling */
+.share-popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: 12px; /* Rounded corners */
+  padding: 20px 30px;
+  z-index: 10;
+  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.2); /* Soft shadow */
+  width: 300px;
+  text-align: center;
+  animation: fadeIn 0.3s ease-in-out; /* Smooth animation */
+}
+
+/* Popup content */
+.share-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.share-content h3 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.share-content input {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 100%;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+/* Buttons */
+.share-content button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.share-content button:hover {
+  background-color: #45a049;
+}
+
+/* Close button */
+.share-content button.close-btn {
+  background-color: #f44336;
+}
+
+.share-content button.close-btn:hover {
+  background-color: #e74c3c;
+}
+
+/* Back button */
+.auth-back-button {
+  background-color: #008CBA;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 15px;
+}
+
+.auth-back-button:hover {
+  background-color: #007B9E;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
