@@ -5,6 +5,9 @@ import StringBinding from 'sharedb-string-binding';
 
 const PlainTextEditor = (props) => {
   const textareaRef = useRef(null);
+  const [showSharePopup, setShowSharePopup] = useState(false);
+  const [shareUsername, setShareUsername] = useState('');
+  const [shareMessage, setShareMessage] = useState('');
 
   useEffect(() => {
     if (props.docId && props.docSpaceId) {
@@ -32,9 +35,54 @@ const PlainTextEditor = (props) => {
     }
   }, [props.docSpaceId, props.docId]);
 
+  const handleShare = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/documents/share', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          docId: props.docId,
+          docSpaceId: props.docSpaceId,
+          targetUsername: shareUsername
+        })
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setShareMessage('Document shared successfully!');
+      } else {
+        setShareMessage('Error sharing the document: ' + data.message);
+      }
+    } catch (error) {
+      setShareMessage('Error sharing the document: ' + error.message);
+    }
+  };
+
   return (
-    <div>
-      <textarea ref={textareaRef} style={{ width: '100%', height: '300px' }} />
+    <div className="editor-wrapper">
+      <button onClick={() => setShowSharePopup(true)}>Share</button>
+
+      {showSharePopup && (
+        <>
+          <div className="overlay" onClick={() => setShowSharePopup(false)}></div>
+          <div className="share-popup">
+            <div className="share-content">
+              <h3>Share Document</h3>
+              <input
+                type="text"
+                placeholder="Enter username"
+                value={shareUsername}
+                onChange={(e) => setShareUsername(e.target.value)}
+              />
+              <button onClick={handleShare}>Share</button>
+              <button className="close-btn" onClick={() => setShowSharePopup(false)}>Close</button>
+              {shareMessage && <p>{shareMessage}</p>}
+            </div>
+          </div>
+        </>
+      )}
+
+      <textarea ref={textareaRef} style={{ width: '100%', height: '300px', marginTop: '10px' }} />
       <button className="auth-back-button" onClick={() => {
         props.setDocId(null);
         props.setDocSpaceId(null);
@@ -42,5 +90,6 @@ const PlainTextEditor = (props) => {
     </div>
   );
 };
+
 
 export default PlainTextEditor;
