@@ -25,19 +25,21 @@ const DocumentCreator = (props) => {
   };
 
   return (
-    <div>
+    <div className="document-creator-container">
+      <input
+        type="text"
+        placeholder="Enter name for document"
+        value={currentDocId}
+        onChange={(e) => setCurrentDocId(e.target.value)}
+        className="doc-name-input"
+      />
       <button
         onClick={() => createDocument(props)}
         disabled={!currentDocId}
+        className="create-doc-button"
       >
         Create New Document
       </button>
-      <input
-        type="text"
-        placeholder="Enter Name for Document"
-        value={currentDocId}
-        onChange={(e) => setCurrentDocId(e.target.value)}
-      />
     </div>
   );
 };
