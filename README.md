@@ -7,6 +7,9 @@
 3. share-db - for real time syncing of documents between document-dashboard, document-server and MongoDb
 
 # Set Up Guide
+Ensure you have npm installed
+The node version I used while creating this is v22.8.0
+
 ## document-dashboard
 ```
 cd document-dashboard
